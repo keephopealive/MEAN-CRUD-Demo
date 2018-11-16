@@ -1,0 +1,24 @@
+{{ titleErrorMessage }}
+{{ descriptionErrorMessage }}
+{{ priceErrorMessage }}
+<form (submit)="createWidget()">
+  <input type="text" name="newWidget.title" [(ngModel)]="newWidget.title">
+  <input type="text" name="newWidget.description" [(ngModel)]="newWidget.description">
+  <input type="number" name="newWidget.price" [(ngModel)]="newWidget.price">
+  <input type="submit">
+</form>
+
+<form *ngIf="editWidget" (submit)="updateWidget()">
+  <input type="text" name="editWidget.title" [(ngModel)]="editWidget.title">
+  <input type="text" name="editWidget.description" [(ngModel)]="editWidget.description">
+  <input type="number" name="editWidget.price" [(ngModel)]="editWidget.price">
+  <input type="submit">
+</form>
+
+<ul>
+  <li *ngFor="let widget of widgets">
+    {{ widget.title }}
+    <button (click)="editWidget = widget">Edit</button>
+    <button (click)="deleteWidget(widget._id)">Delete</button>
+  </li>
+</ul>
