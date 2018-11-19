@@ -19,10 +19,12 @@ mongoose.connect("mongodb://localhost/widgets_db")
 const WidgetSchema = new mongoose.Schema({
     title: { 
         type: String, 
+        minlength: [13, "Title must exist."],
         required: [true, "Title must exist."]
     },
     description: { 
-        type: String, 
+        type: String,
+        minlength: [13, "Description must exist."], 
         required: [true, "Description must exist."]
     },
     price: { 
@@ -41,6 +43,23 @@ app.get('/widgets', function (req, res) {
         res.json(widgets);
     });
 
+})
+
+app.get("/widgets/:id", function(req, res){
+    Widget.findOne({_id: req.params.id}, function(err, widget){
+        if (err) {
+            res.json({
+                status: false,
+                err: err
+            });
+        }
+        else {
+            res.json({
+                status: true,
+                result: widget
+            });
+        }
+    })
 })
 
 app.post("/widgets", function(req, res) {
@@ -73,14 +92,26 @@ app.delete("/widgets/:id", function(req, res){
 
 app.put("/widgets/:id", function(req, res) {
     console.log("SERVER > PUT /widgets/:id", "req.params.id:" , req.params.id, "req.body", req.body);
-    Widget.update({_id: req.params.id}, req.body, (err, result) => {
-        if (err) { console.log(err) }
+    Widget.update({_id: req.params.id}, req.body, { runValidators: true }, (err, result) => {
+        console.log("SERVER >  PUT /widgets/:id, Widget.update, result: ", result);
+        if (err) {
+            res.json({
+                status: false,
+                err: err,
+                // err
+            });
+        }
         else {
-            console.log("SERVER >  PUT /widgets/:id, Widget.update, result: ", result);
-            res.json(true);
+            res.json({
+                status: true,
+            });
         }
     })
 })
+
+app.all("*", (req,res,next) => {
+    res.sendFile(path.resolve("./angular-app/dist/angular-app/index.html"))
+});
 
 // ============ Server ============ 
 app.listen(8001);

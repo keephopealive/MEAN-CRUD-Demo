@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +13,22 @@ export class WidgetService {
     console.log("ANGULAR > WidgetService > getAllWidgets()");
     return this._httpClient.get("/widgets");
   }
+  
+  getOneWidgetsById(id) {
+    console.log("ANGULAR > WidgetService > getAllWidgets()");
+    return this._httpClient.get( "/widgets/"+id );
+  }
 
-  createWidget(newWidget) {
-    return this._httpClient.post("/widgets", newWidget);
+  createWidget(newWidget): Observable<any> {
+    return this._httpClient.post( "/widgets", newWidget);
   }
 
   deleteWidget(id) {
-    return this._httpClient.delete("/widgets/" + id);
+    return this._httpClient.delete( "/widgets/" + id);
   }
 
   updateWidget(editWidget) {
-    return this._httpClient.put("/widgets/"+editWidget._id, editWidget);
+    return this._httpClient.put( "/widgets/"+editWidget._id, editWidget);
   }
 
 }

@@ -1,0 +1,19 @@
+<div *ngIf="editWidget">
+  <hr>
+    <h3>
+      edit-widget works!
+    </h3>
+
+  {{titleErrorMessage}}
+  {{descriptionErrorMessage}}
+  {{priceErrorMessage}}
+
+  <form (submit)="updateWidget()">
+    <input type="text" name="editWidget.title" [(ngModel)]="editWidget.title">
+    <input type="text" name="editWidget.description" [(ngModel)]="editWidget.description">
+    <input type="number" name="editWidget.price" [(ngModel)]="editWidget.price">
+    <input type="submit">
+  </form>
+  <button [routerLink]="['/']">Back</button>
+  <hr>
+</div>

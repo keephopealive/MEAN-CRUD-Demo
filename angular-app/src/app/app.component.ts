@@ -32,8 +32,7 @@ export class AppComponent implements OnInit {
             },
             (error)=>{
                 console.log(error);
-            },
-        );
+            });
     }
 
     createWidget() {
@@ -57,8 +56,7 @@ export class AppComponent implements OnInit {
             },
             (error)=>{ 
                 console.log(error) 
-            }
-        )
+            })
     }
 
     deleteWidget(id: any) {
@@ -70,8 +68,7 @@ export class AppComponent implements OnInit {
             },
             (error)=>{ 
                 console.log(error) 
-            }
-        )
+            })
     }
 
     updateWidget() {
@@ -83,8 +80,7 @@ export class AppComponent implements OnInit {
             },
             (error)=>{ 
                 console.log(error) 
-            }
-        )
+            })
     }
 
 }
